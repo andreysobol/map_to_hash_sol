@@ -1,25 +1,23 @@
-# Sample Hardhat Project
+# MapToHash
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+```
+    function getHash(uint256 size) public returns (bytes32) {
+        bytes memory tos = new bytes(32*size);
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
+        for (uint256 i=0; i<size; i++) { 
+            uint256 v = values[i];
+            uint256 pointer = 32 + i*32;
+            assembly {
+                mstore(add(tos, pointer), v)
+            }
+        }
+        result = sha256(tos);
+        return result;
+    }
 ```
 
-# Node
+# Performing a calculation
 
 ```shell
-npx hardhat node
-```
-
-# Deploy
-
-```shell
-npx hardhat run scripts/dmth.ts
+npx hardhat run scripts/gastest.ts
 ```

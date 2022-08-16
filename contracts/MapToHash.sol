@@ -21,6 +21,10 @@ contract MatToHash {
         return result;
     }
 
+    function initResult() public {
+        result = sha256("");
+    }
+
     function set(uint256 key, uint256 value) public {
         values[key] = value;
     }
